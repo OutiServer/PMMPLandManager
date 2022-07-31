@@ -5,4 +5,6 @@ branches:
 projects:
   PMMPLandManager:
     path: ""
+    lint:
+      phpstan: false
 ...
