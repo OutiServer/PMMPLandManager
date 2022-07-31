@@ -1,0 +1,6 @@
+name: LandManager
+author: Ken_Cir
+version: 1.0.0
+api: 4.0.0
+main: outiserver\landmanager\LandManagerMain
+src-namespace-prefix: outiserver\landmanager

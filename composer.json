@@ -1,0 +1,13 @@
+{
+  "name": "outiserver/landmanager",
+  "description": "土地保護",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "outiserver\\landmanager\\": "src/"
+    }
+  },
+  "require-dev": {
+    "pocketmine/pocketmine-mp": "4.*"
+  }
+}
