@@ -7,10 +7,12 @@ namespace outiserver\landmanager;
 use Ken_Cir\LibFormAPI\FormStack\StackFormManager;
 use outiserver\economycore\EconomyCore;
 use outiserver\landmanager\database\landdata\LandDataManager;
+use outiserver\landmanager\language\LanguageManager;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\utils\SingletonTrait;
 use poggit\libasynql\DataConnector;
+use poggit\libasynql\libasynql;
 use poggit\libasynql\SqlError;
 
 class LandManagerMain extends PluginBase
@@ -30,6 +32,8 @@ class LandManagerMain extends PluginBase
     private mixed $databaseConfig;
 
     private StackFormManager $stackFormManager;
+
+    private LanguageManager $languageManager;
 
     protected function onLoad(): void
     {
@@ -61,6 +65,9 @@ class LandManagerMain extends PluginBase
         $this->config = new Config("{$this->getDataFolder()}config.yml", Config::YAML);
         $this->databaseConfig = (new Config("{$this->getDataFolder()}database.yml", Config::YAML))->get("database");
 
+        $this->dataConnector = libasynql::create($this, (new Config($this->getDataFolder() . "database.yml", Config::YAML))->get("database"), [
+            "sqlite" => "sql/sqlite.sql",
+        ]);
         $this->dataConnector->executeGeneric("economy.land.lands.init",
             [],
             null,

@@ -7,6 +7,7 @@ namespace outiserver\landmanager\forms;
 use Ken_Cir\LibFormAPI\FormContents\SimpleForm\SimpleFormButton;
 use Ken_Cir\LibFormAPI\Forms\SimpleForm;
 use outiserver\economycore\Forms\Base\BaseForm;
+use outiserver\landmanager\caches\landcache\LandCacheManager;
 use outiserver\landmanager\LandManagerMain;
 use pocketmine\player\Player;
 
@@ -25,7 +26,14 @@ class LandManagerForm implements BaseForm
         ],
         function (Player $player, int $data) {
             if ($data === 0) {
-                (new AddLandForm())->execute($player);
+                $landCache = LandCacheManager::getInstance()->get($player->getXuid());
+                $pos = $player->getPosition();
+                // 1回目のクリック
+                if (!$landCache) {
+                    LandCacheManager::getInstance()->create($player->getXuid(), $pos->getFloorX(), $pos->getFloorY(), $pos->getFloorZ());
+
+                }
+                LandManagerMain::getInstance()->getStackFormManager()->deleteStack($player->getXuid());
             }
         },
         function (Player $player) {
