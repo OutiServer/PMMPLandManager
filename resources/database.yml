@@ -1,0 +1,14 @@
+# データベースConfigのバージョン
+version: 1.0.0
+
+# データベースの設定
+database:
+  type: sqlite
+  sqlite:
+    file: land.db
+  mysql:
+    host: 127.0.0.1
+    username: root
+    password: ""
+    schema: your_schema
+  worker-limit: 1
